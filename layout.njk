@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{% if title %}{{ title }} — The Moody Tickler{% else %}The Moody Tickler{% endif %}</title>
+<meta name="description" content="{{ settings.tagline }}">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Spectral:ital@1&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E30613;
+    --maroon: #7A0C1E;
+    --ink: #1A1712;
+    --ink-soft: #57503F;
+    --paper: #FDF2F1;
+    --paper-2: #F9E1DF;
+    --rule: #1A1712;
+    --card-bg: #FEF8F7;
+    box-sizing: border-box;
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'Source Sans 3', sans-serif; }
+  a { color: inherit; }
+  img { max-width: 100%; height: auto; display: block; }
+
+  .masthead { background: var(--red); padding: 26px 20px 0; text-align: center; }
+  .masthead a { display: inline-block; }
+  .masthead img.wordmark { width: 100%; max-width: 480px; height: auto; }
+  .issue-bar {
+    background: var(--ink); color: #fff; font-size: 12.5px; letter-spacing: 0.03em;
+    padding: 9px 14px; display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;
+  }
+  .issue-bar span { white-space: nowrap; }
+  .nav-bar {
+    background: var(--paper-2); border-bottom: 1px solid var(--ink-soft);
+    display: flex; justify-content: center; gap: 22px; padding: 10px 14px; font-size: 14px; font-weight: 600;
+  }
+  .nav-bar a:hover { color: var(--red); }
+
+  .page { max-width: 1020px; margin: 0 auto; padding: 30px 20px 70px; }
+
+  .kicker {
+    font-weight: 600; font-size: 12px; letter-spacing: 0.08em; color: var(--red);
+    text-transform: uppercase; margin: 0 0 6px; display: inline-block;
+  }
+  .story-title { font-family: 'Spectral', serif; font-weight: 700; line-height: 1.12; margin: 0 0 10px; }
+  .byline { font-family: 'Spectral', serif; font-style: italic; font-size: 14px; color: var(--ink-soft); margin: 0 0 14px; }
+  .teaser { line-height: 1.55; margin: 0 0 10px; }
+
+  .lead { padding-bottom: 26px; margin-bottom: 26px; border-bottom: 3px double var(--rule); }
+  .lead .story-title { font-size: clamp(1.8rem, 4.4vw, 2.7rem); }
+  .lead .teaser { font-size: 1.08rem; max-width: 68ch; }
+  .lead img.story-image { margin: 14px 0; border: 1px solid var(--ink-soft); }
+
+  .grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+  @media (min-width: 700px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+    .grid .card:nth-child(odd) { border-right: 1px solid var(--ink-soft); padding-right: 26px; }
+    .grid .card:nth-child(even) { padding-left: 26px; }
+  }
+  .card { padding: 22px 0; border-top: 1px solid var(--ink-soft); }
+  .card:nth-child(-n+2) { border-top: none; }
+  .card .story-title { font-size: 1.28rem; font-weight: 600; }
+  .card img.story-image { margin: 0 0 10px; border: 1px solid var(--ink-soft); }
+
+  .readmore { font-weight: 600; font-size: 13px; color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+
+  article.full-story .story-image { margin: 6px 0 22px; border: 1px solid var(--ink-soft); }
+  article.full-story .body-copy { line-height: 1.7; font-size: 1.05rem; max-width: 68ch; }
+  article.full-story .body-copy p { margin: 0 0 1.1em; }
+  .back-link { display: inline-block; margin-bottom: 22px; font-weight: 600; font-size: 14px; color: var(--maroon); }
+
+  .archive-list { list-style: none; margin: 0; padding: 0; }
+  .archive-list li { padding: 14px 0; border-top: 1px solid var(--ink-soft); }
+  .archive-list li:first-child { border-top: none; }
+  .archive-list .story-title { font-size: 1.1rem; margin-bottom: 4px; }
+
+  footer { padding: 26px 20px 50px; text-align: center; background: var(--paper-2); }
+  footer img { width: 150px; height: auto; margin: 0 auto 10px; }
+  footer p { font-size: 11.5px; color: var(--ink-soft); margin: 0; max-width: 50ch; margin-left: auto; margin-right: auto; }
+</style>
+</head>
+<body>
+
+  <div class="masthead">
+    <a href="/"><img class="wordmark" src="/images/logo-banner.png" alt="The Moody Tickler"></a>
+  </div>
+  <div class="issue-bar">
+    <span>{{ settings.issueLine }}</span>
+    <span>{{ "now" | dateFormat }}</span>
+    <span>{{ settings.tagline }}</span>
+  </div>
+  <div class="nav-bar">
+    <a href="/">Front Page</a>
+    <a href="/archive/">Archive</a>
+  </div>
+
+  <div class="page">
+    {{ content | safe }}
+  </div>
+
+  <footer>
+    <img src="/images/logo-dark.png" alt="The Moody Tickler">
+    <p>{{ settings.footerNote }}</p>
+  </footer>
+
+</body>
+</html>

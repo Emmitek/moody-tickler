@@ -1,0 +1,29 @@
+---
+layout: layout.njk
+title: null
+---
+{% set featured = collections.leadStory[0] %}
+
+{% if featured %}
+<article class="lead">
+  <span class="kicker">{{ featured.data.category }}</span>
+  <h1 class="story-title">{{ featured.data.title }}</h1>
+  <p class="byline">{{ featured.data.byline }} — {{ featured.data.date | dateFormat }}</p>
+  {% if featured.data.image %}<img class="story-image" src="{{ featured.data.image }}" alt="">{% endif %}
+  <p class="teaser">{{ featured.data.teaser }}</p>
+  <a class="readmore" href="{{ featured.url }}">Read the full story</a>
+</article>
+{% endif %}
+
+<main class="grid">
+  {% for story in collections.restStories %}
+    <article class="card">
+      <span class="kicker">{{ story.data.category }}</span>
+      <h2 class="story-title"><a href="{{ story.url }}">{{ story.data.title }}</a></h2>
+      <p class="byline">{{ story.data.byline }} — {{ story.data.date | dateFormat }}</p>
+      {% if story.data.image %}<img class="story-image" src="{{ story.data.image }}" alt="">{% endif %}
+      <p class="teaser">{{ story.data.teaser }}</p>
+      <a class="readmore" href="{{ story.url }}">Read more</a>
+    </article>
+  {% endfor %}
+</main>

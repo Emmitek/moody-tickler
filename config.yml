@@ -1,0 +1,37 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/images/uploads"
+public_folder: "/images/uploads"
+
+publish_mode: simple
+
+collections:
+  - name: "stories"
+    label: "Stories"
+    label_singular: "Story"
+    folder: "src/stories"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Category", name: "category", widget: "string", default: "Local Notices", hint: "e.g. Local Notices, Correspondence, Sporting News, Almanac & Weather, Notices, Editor's Aside — or invent your own" }
+      - { label: "Byline", name: "byline", widget: "string", default: "By Our Correspondent" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Feature on the front page", name: "featured", widget: "boolean", default: false, required: false, hint: "Only one story should be featured at a time — the newest featured one wins" }
+      - { label: "Photo", name: "image", widget: "image", required: false, hint: "Optional. Appears above the teaser and at the top of the full story." }
+      - { label: "Teaser", name: "teaser", widget: "text", hint: "One or two sentences shown on the front page and archive" }
+      - { label: "Story", name: "body", widget: "markdown" }
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "Masthead & Footer"
+        file: "src/_data/settings.json"
+        fields:
+          - { label: "Issue Line", name: "issueLine", widget: "string", hint: "Shown in the black bar under the masthead, e.g. VOL. I, NO. 4" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Footer Note", name: "footerNote", widget: "text" }

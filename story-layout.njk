@@ -1,0 +1,11 @@
+---
+layout: layout.njk
+---
+<a class="back-link" href="/">&larr; Back to the front page</a>
+<article class="full-story">
+  <span class="kicker">{{ category }}</span>
+  <h1 class="story-title">{{ title }}</h1>
+  <p class="byline">{{ byline }} — {{ date | dateFormat }}</p>
+  {% if image %}<img class="story-image" src="{{ image }}" alt="">{% endif %}
+  <div class="body-copy">{{ content | safe }}</div>
+</article>

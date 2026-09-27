@@ -1,0 +1,15 @@
+---
+layout: layout.njk
+title: Archive
+permalink: "/archive/"
+---
+<h1 class="story-title" style="font-size:1.8rem;">Archive</h1>
+<ul class="archive-list">
+  {% for story in collections.stories %}
+  <li>
+    <span class="kicker">{{ story.data.category }}</span>
+    <h2 class="story-title"><a href="{{ story.url }}">{{ story.data.title }}</a></h2>
+    <p class="byline">{{ story.data.byline }} — {{ story.data.date | dateFormat }}</p>
+  </li>
+  {% endfor %}
+</ul>
